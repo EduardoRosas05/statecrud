@@ -9,11 +9,17 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
 
-      models.city.belongsTo(models.state,
+      models.City.belongsTo(models.State,
+      {
+        as:'state',
+        foreignKey:'stateId'
+      });
+
+      //
+      models.City.hasMany(models.Localy,
         {
-          as:'Estado',
-          foreignKey:'stateId'
-        });
+          as: "localies",
+        })
     }
   }
   city.init({

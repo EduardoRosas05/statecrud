@@ -25,11 +25,11 @@ export default function handler(req, res) {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-    const Citys1 = await db.City.findAll({
-        include: ['state', 'localies']
+    const Localys1 = await db.Localy.findAll({
+        include: ['city'],
     });
         
-        return res.json(Citys1)
+        return res.json(Localys1)
     
     }catch(error){
         console.log(error);
@@ -54,18 +54,18 @@ const updateUser = async (req,res) => {
     try{
 
         let {id} = req.query;
-        await db.City.update({...req.body},
+        await db.Localy.update({...req.body},
             {
             where :{
                 id : id
             },
         })
         res.json({
-            message: 'El municipion fue actualizado'
+            message: 'La localidad fue actualizado'
         })
       }
          catch (error){
-            res.status(400).json({ error: "error al momento de actualizar el estado"})
+            res.status(400).json({ error: "error al momento de actualizar la localidad"})
     }
 }
 
@@ -75,18 +75,18 @@ const deleteUser = async (req,res) => {
 
     try{
       const {id} = req.query;
-        await db.City.destroy({
+        await db.Localy.destroy({
             where: {
                 id: id
             }
         })
         res.json({
-            message: 'El municipio a sido eliminado'
+            message: 'La localidad a sido eliminada'
         })
 
       }
          catch (error){
-            res.status(400).json({ error: "error al momento de borrar el estado"})
+            res.status(400).json({ error: "error al momento de borrar la localidad"})
     }
 }
 
@@ -96,10 +96,10 @@ const addCustomers = async (req, res) => {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-        const customer = await db.City.create({...req.body});
+        const customer = await db.Localy.create({...req.body});
         res.json({
             customer,
-            message: 'El municipio fue agregado correctamente'
+            message: 'La localidad fue agregada correctamente'
         })
     }catch(error){
         console.log(error);
