@@ -25,7 +25,9 @@ export default function handler(req, res) {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-    const states1 = await db.state.findAll();
+    const states1 = await db.state.findAll({
+        include:['Municipios'],
+    });
         
         return res.json(states1)
     

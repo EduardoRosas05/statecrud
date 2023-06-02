@@ -15,10 +15,9 @@ module.exports = {
       },
       stateId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
-          model: {
-            tableName:'states'
-          },
+          model: 'states',
           key: 'id'
         },
         allowNull: false

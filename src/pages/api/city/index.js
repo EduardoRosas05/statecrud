@@ -25,7 +25,9 @@ export default function handler(req, res) {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-    const citys1 = await db.city.findAll();
+    const citys1 = await db.city.findAll({
+        include: ['Estado'],
+    });
         
         return res.json(citys1)
     
@@ -49,7 +51,6 @@ export default function handler(req, res) {
 }
 
 const updateUser = async (req,res) => {
-
     try{
 
         let {id} = req.query;
@@ -58,13 +59,10 @@ const updateUser = async (req,res) => {
             where :{
                 id : id
             },
-
         })
-
         res.json({
-            message: 'El estado fue actualizado'
+            message: 'El municipion fue actualizado'
         })
-
       }
          catch (error){
             res.status(400).json({ error: "error al momento de actualizar el estado"})
@@ -77,15 +75,13 @@ const deleteUser = async (req,res) => {
 
     try{
       const {id} = req.query;
-      
         await db.city.destroy({
             where: {
                 id: id
             }
         })
-
         res.json({
-            message: 'El estado a sido eliminado'
+            message: 'El municipio a sido eliminado'
         })
 
       }
@@ -101,11 +97,9 @@ const addCustomers = async (req, res) => {
         console.log(req.body);
         //guardar cliente
         const customer = await db.city.create({...req.body});
-
-
         res.json({
             customer,
-            message: 'El estado fue agregado correctamente'
+            message: 'El municipio fue agregado correctamente'
         })
     }catch(error){
         console.log(error);
