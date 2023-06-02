@@ -18,9 +18,11 @@ if (config.use_env_variable) {
 }
 
 import state from './state';
+import city from './city';
 
 
 db.state = state(sequelize, Sequelize.DataTypes);
+db.city = state(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
