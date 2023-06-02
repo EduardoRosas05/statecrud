@@ -25,11 +25,11 @@ export default function handler(req, res) {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-    const states1 = await db.state.findAll({
-        include:['Municipios'],
+    const States1 = await db.State.findAll({
+        include:['cities'],
     });
         
-        return res.json(states1)
+        return res.json(States1)
     
     }catch(error){
         console.log(error);
@@ -55,7 +55,7 @@ const updateUser = async (req,res) => {
     try{
 
         let {id} = req.query;
-        await db.state.update({...req.body},
+        await db.State.update({...req.body},
             {
             where :{
                 id : id
@@ -80,7 +80,7 @@ const deleteUser = async (req,res) => {
     try{
       const {id} = req.query;
       
-        await db.state.destroy({
+        await db.State.destroy({
             where: {
                 id: id
             }
@@ -102,7 +102,7 @@ const addCustomers = async (req, res) => {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-        const customer = await db.state.create({...req.body});
+        const customer = await db.State.create({...req.body});
 
 
         res.json({

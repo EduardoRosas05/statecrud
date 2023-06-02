@@ -7,9 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   
 
     static associate(models) {
-      models.state.hasMany(models.city,
+      models.State.hasMany(models.City,
         {
-          as: "Municipios",
+          as: "cities",
         })
     }
   }
