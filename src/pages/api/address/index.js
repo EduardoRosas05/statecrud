@@ -25,12 +25,41 @@ export default function handler(req, res) {
         //los datos vienen del req.body
         console.log(req.body);
         //guardar cliente
-    const Localys1 = await db.Localy.findAll({
-        include: ['city', 'addresses'],
+    const Address1 = await db.Address.findAll({
+        include: ['localies']
     });
         
-        return res.json(Localys1)
+        return res.json(Address1)
     
+    }catch(error){
+        console.log(error);
+        let errors = []
+
+        if(error.errors){
+            //extrae la info
+            errors = error.errors.map((item) => ({
+                error: item.message, 
+                field: item.path,
+            }));
+        }
+
+        return res.status(400).json({
+            message: `Ocurrió un error al procesar la petición: ${error.message}`,
+            errors,
+        })
+    }
+}
+
+const addCustomers = async (req, res) => {
+    try{
+        //los datos vienen del req.body
+        console.log(req.body);
+        //guardar cliente
+        const customer = await db.Address.create({...req.body});
+        res.json({
+            customer,
+            message: 'El municipio fue agregado correctamente'
+        })
     }catch(error){
         console.log(error);
         let errors = []
@@ -54,18 +83,18 @@ const updateUser = async (req,res) => {
     try{
 
         let {id} = req.query;
-        await db.Localy.update({...req.body},
+        await db.Address.update({...req.body},
             {
             where :{
                 id : id
             },
         })
         res.json({
-            message: 'La localidad fue actualizado'
+            message: 'El municipion fue actualizado'
         })
       }
          catch (error){
-            res.status(400).json({ error: "error al momento de actualizar la localidad"})
+            res.status(400).json({ error: "error al momento de actualizar el estado"})
     }
 }
 
@@ -75,48 +104,21 @@ const deleteUser = async (req,res) => {
 
     try{
       const {id} = req.query;
-        await db.Localy.destroy({
+        await db.Address.destroy({
             where: {
                 id: id
             }
         })
         res.json({
-            message: 'La localidad a sido eliminada'
+            message: 'El municipio a sido eliminado'
         })
 
       }
          catch (error){
-            res.status(400).json({ error: "error al momento de borrar la localidad"})
+            res.status(400).json({ error: "error al momento de borrar el estado"})
     }
 }
 
   
-const addCustomers = async (req, res) => {
-    try{
-        //los datos vienen del req.body
-        console.log(req.body);
-        //guardar cliente
-        const customer = await db.Localy.create({...req.body});
-        res.json({
-            customer,
-            message: 'La localidad fue agregada correctamente'
-        })
-    }catch(error){
-        console.log(error);
-        let errors = []
 
-        if(error.errors){
-            //extrae la info
-            errors = error.errors.map((item) => ({
-                error: item.message, 
-                field: item.path,
-            }));
-        }
-
-        return res.status(400).json({
-            message: `Ocurrió un error al procesar la petición: ${error.message}`,
-            errors,
-        })
-    }
-}
 

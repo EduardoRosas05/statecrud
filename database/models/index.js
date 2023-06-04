@@ -20,11 +20,13 @@ if (config.use_env_variable) {
 import state from './state';
 import city from './city';
 import localy from './localy';
+import address from './address';
 
 
 db.State = state(sequelize, Sequelize.DataTypes);
 db.City = city(sequelize, Sequelize.DataTypes);
 db.Localy = localy(sequelize, Sequelize.DataTypes);
+db.Address = address(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

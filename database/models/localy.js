@@ -4,6 +4,8 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class localy extends Model {
+
+
     
     static associate(models) {
       // define association here
@@ -12,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
           as:'city',
           foreignKey:'cityId'
         });
+
+        //
+      models.Localy.hasMany(models.Address,
+        {
+          as: "addresses",
+        })
     }
   }
   localy.init({
