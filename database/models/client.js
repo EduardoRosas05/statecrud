@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     
     static associate(models) {
       // define association here
+      models.Client.belongsTo(models.Address,
+        {
+          as:'addreses',
+          foreignKey:'addressId'
+        });
     }
   }
   client.init({

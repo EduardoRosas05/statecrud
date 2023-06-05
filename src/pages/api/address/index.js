@@ -26,7 +26,7 @@ export default function handler(req, res) {
         console.log(req.body);
         //guardar cliente
     const Address1 = await db.Address.findAll({
-        include: ['localies']
+        include: ['localy','clients']
     });
         
         return res.json(Address1)
