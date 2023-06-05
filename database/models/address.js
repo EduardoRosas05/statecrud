@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Address.belongsTo(models.Localy,
         {
-          as:'localies',
+          as:'localy',
           foreignKey:'localyId'
         });
     }
